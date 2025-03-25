@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cari Lagu</title>
+    <style>
+        /* Styling Umum */
+        body {
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            background: linear-gradient(135deg, #1e1e1e, #292929);
+            color: white;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Kotak pencarian */
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+            width: 90%;
+            max-width: 450px;
+            backdrop-filter: blur(10px);
+        }
+
+        h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        p {
+            font-size: 14px;
+            opacity: 0.8;
+            margin-bottom: 20px;
+        }
+
+        input {
+            padding: 14px;
+            width: calc(100% - 28px);
+            border: none;
+            border-radius: 8px;
+            text-align: center;
+            outline: none;
+            font-size: 16px;
+            transition: 0.3s;
+            background: #333;
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        input:focus {
+            box-shadow: 0 0 12px #ff5722;
+            background: #444;
+        }
+
+        /* Tombol */
+        button {
+            padding: 12px 24px;
+            background: #ff5722;
+            border: none;
+            color: white;
+            cursor: pointer;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background: #e64a19;
+            transform: scale(1.05);
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        /* Pemutar Audio */
+        audio {
+            margin-top: 20px;
+            width: 100%;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .show-audio {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>🔍 Cari Lagu</h2>
+        <p>Masukkan <strong>sound1 - sound119</strong> untuk mencari lagu.</p>
+        <input type="text" id="searchInput" placeholder="Masukkan nama lagu...">
+        <button onclick="cariLagu()">Cari 🎵</button>
+        <audio id="audioPlayer" controls class="hidden"></audio>
+    </div>
+
+    <script>
+        function cariLagu() {
+            const input = document.getElementById("searchInput").value.toLowerCase();
+            const audioPlayer = document.getElementById("audioPlayer");
+
+            // Validasi format input
+            const regex = /^sound(1[0-9]{0,2}|[1-9])$/;
+            if (regex.test(input) && parseInt(input.replace("sound", "")) <= 119) {
+                const audioUrl = `https://raw.githubusercontent.com/Aisyah-Aldi/Sound/main/${input}.mp3`;
+                audioPlayer.src = audioUrl;
+                audioPlayer.classList.add("show-audio");
+                audioPlayer.play();
+            } else {
+                alert("Nama lagu tidak ditemukan! Masukkan antara sound1 - sound119.");
+            }
+        }
+    </script>
+</body>
+</html>
